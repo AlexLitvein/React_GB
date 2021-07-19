@@ -1,91 +1,71 @@
 import React, { useState, useEffect } from "react";
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+
 import logo from "./logo.svg";
 import "./App.css";
+import SendForm from "./SendForm";
+import Tittle from "./Tittle";
+import Message from "./Message";
+// import MssageList from "./MessageList"
 
-function Tittle(props) {
-  return <p>{props.text}</p>;
-}
-
-function SendForm(props) {
-  const [author, setAuthor] = useState("");
-  const handleChange = (event) => {
-    setAuthor(event.target.value);
-  };
-
-  const [text, setText] = useState("");
-  const handleText = (event) => {
-    setText(event.target.value);
-  };
-
-  return (
-    <div className="send-form cont">
-      <label>
-        Author
-        <input className="author" type="text" value={author} onChange={handleChange}></input>
-      </label>
-      <label>
-        Text
-        <textarea className="text" type="text" value={text} onChange={handleText}></textarea>
-      </label>
-      <button
-        onClick={() => {
-          props.addMsg({ auth: author, text: text });
-        }}
-      >
-        Send
-      </button>
-    </div>
-  );
-}
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+}));
 
 function App() {
-  const [messageList, addMsg] = useState([]);
+  // const classes = useStyles();
+
+  const [messageList, setMessageList] = useState([]);
+
   const addMessage = (msg) => {
-    let res = false;
     console.log("addMessage");
     if (msg.auth !== "" && msg.text !== "") {
-      res = true;
-      messageList.push(msg);
-      addMsg([...messageList]);
+      setMessageList(curr => [...curr, msg]);
     }
-    return res;
   };
-
-  const [msg, setMsg] = useState({ auth: "", text: "" });
-
-  function setMessage(msgIn) {
-    console.log("setMessage");
-    setMsg(msgIn);
-  }
 
   useEffect(() => {
     console.log("useEffect");
-    let res = addMessage(msg);
-    if (res) {
+    if (messageList.length && messageList[messageList.length - 1].auth !== "Робот") {
       setTimeout(() => {
-        addMessage({ auth: "Робот", text: `Привет ${msg.auth}!` });
+        addMessage({ auth: "Робот", text: `Привет!` });
       }, 1500);
     }
-  }, [msg]);
+  }, [messageList]);
 
   return (
     <div className="App">
-      <header className="App-header cont">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Tittle text={"Привет!"} />
-      </header>
 
-      <div className="app-body cont">
-        <SendForm addMsg={setMessage} />
-        <div className="msg-list cont">
-          {messageList.map((msg, idx) => (
-            <div key={idx}>
-              {msg.auth}: {msg.text}
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
+      <Grid container spacing={2}>
+        <Grid className="brd" item xs={4}>
+          <header className="App-header ">
+            <img src={logo} className="App-logo" alt="logo" />
+            <Tittle text={"Привет!"} />
+          </header>
+        </Grid>
+        <Grid container spacing={2} item xs={8}>
+          <Grid className="msg-list brd" item xs={12}>
+            {messageList.map((msg, idx) => (
+              <Message key={idx} msg={msg} />
+            ))}
+          </Grid>
+          <Grid item xs={12}>
+            <SendForm addMessage={addMessage} />
+          </Grid>
+        </Grid>
+      </Grid>
+
+
+    </div >
   );
 }
 
