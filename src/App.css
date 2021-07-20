@@ -51,9 +51,9 @@
 
 .msg-list{
   overflow-y: auto;
-  height: 90vh;
+  height: 80vh;
 }
 
 .send-form{
-  height: 10vh;
+  height: 20vh;
 }

@@ -1,28 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-
+import { Grid, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
+import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import orange from '@material-ui/core/colors/orange';
+import { Chat } from '@material-ui/icons';
 import logo from "./logo.svg";
 import "./App.css";
 import SendForm from "./SendForm";
 import Tittle from "./Tittle";
 import Message from "./Message";
-// import MssageList from "./MessageList"
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
-}));
 
 function App() {
-  // const classes = useStyles();
+
+  const myTheme = createTheme({
+    palette: {
+      type: "light",
+      primary: {
+        main: orange[500]
+      },
+      background: {
+        default: '#009999'
+      }
+    }
+  });
+
+  const [chatList, setChatList] = useState([{ id: "123", name: "chat1" }, { id: "1234", name: "chat2" }, { id: "1235", name: "chat3" }, { id: "1236", name: "chat4" }]);
 
   const [messageList, setMessageList] = useState([]);
 
@@ -43,29 +45,43 @@ function App() {
   }, [messageList]);
 
   return (
-    <div className="App">
-
-      <Grid container spacing={2}>
-        <Grid className="brd" item xs={4}>
-          <header className="App-header ">
-            <img src={logo} className="App-logo" alt="logo" />
-            <Tittle text={"Привет!"} />
-          </header>
-        </Grid>
-        <Grid container spacing={2} item xs={8}>
-          <Grid className="msg-list brd" item xs={12}>
-            {messageList.map((msg, idx) => (
-              <Message key={idx} msg={msg} />
-            ))}
+    <ThemeProvider theme={myTheme}>
+      <CssBaseline />
+      <div className="App">
+        <Grid container spacing={1}>
+          <Grid className="flxCont" item xs={4}>
+            <div className="flxItm brd">
+              <header className="App-header ">
+                <img src={logo} className="App-logo" alt="logo" />
+                <Tittle text={"Привет!"} />
+              </header>
+              <List component="nav" aria-label="main mailbox folders">
+                {chatList.map((itm) => (
+                  <ListItem key={itm.id} button>
+                    <ListItemIcon>
+                      <Chat />
+                    </ListItemIcon>
+                    <ListItemText primary={itm.name} />
+                  </ListItem>
+                ))}
+              </List>
+            </div>
           </Grid>
-          <Grid item xs={12}>
-            <SendForm addMessage={addMessage} />
+          <Grid className="flxCont" container spacing={1} item xs={8}>
+            <Grid className="flxItm" item xs={12}>
+              <div className="msg-list brd">
+                {messageList.map((msg, idx) => (
+                  <Message key={idx} msg={msg} />
+                ))}
+              </div>
+            </Grid>
+            <Grid item xs={12}>
+              <SendForm addMessage={addMessage} />
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
-
-
-    </div >
+      </div >
+    </ThemeProvider>
   );
 }
 

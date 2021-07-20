@@ -1,7 +1,6 @@
 import React from "react";
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
+// import Box from '@material-ui/core/Box';
+import { Grid, TextField, Button } from '@material-ui/core';
 
 function SendForm(props) {
   const inputRef = React.useRef(null);
@@ -24,13 +23,25 @@ function SendForm(props) {
 
     <Grid className="send-form brd" container>
       <Grid container item xs={10}>
-        <Grid className="flxCont" item xs={12}>
-          <label>Author</label>
-          <input className="author flxItm" type="text" value={author} onChange={handleChange}></input>
+        <Grid className="flxCont" item xs={12}>         
+          <TextField
+            className="flxItm"
+            id="standard-basic"
+            label="Author"
+            value={author}
+            onChange={handleChange}
+          />         
         </Grid>
-        <Grid className="flxCont" item xs={12}>
-          <label>Text</label>
-          <textarea ref={inputRef} className="flxItm" type="text" value={text} onChange={handleText}></textarea>
+        <Grid className="flxCont" item xs={12}>         
+          <TextField
+            className="flxItm"
+            id="standard-multiline-flexible"
+            label="Message"
+            multiline
+            maxRows={4}
+            value={text}
+            onChange={handleText}
+          />
         </Grid>
       </Grid>
       <Grid className="flxCont" item xs={2}>
