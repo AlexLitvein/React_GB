@@ -1,91 +1,87 @@
 import React, { useState, useEffect } from "react";
+import { Grid, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
+import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import orange from '@material-ui/core/colors/orange';
+import { Chat } from '@material-ui/icons';
 import logo from "./logo.svg";
 import "./App.css";
-
-function Tittle(props) {
-  return <p>{props.text}</p>;
-}
-
-function SendForm(props) {
-  const [author, setAuthor] = useState("");
-  const handleChange = (event) => {
-    setAuthor(event.target.value);
-  };
-
-  const [text, setText] = useState("");
-  const handleText = (event) => {
-    setText(event.target.value);
-  };
-
-  return (
-    <div className="send-form cont">
-      <label>
-        Author
-        <input className="author" type="text" value={author} onChange={handleChange}></input>
-      </label>
-      <label>
-        Text
-        <textarea className="text" type="text" value={text} onChange={handleText}></textarea>
-      </label>
-      <button
-        onClick={() => {
-          props.addMsg({ auth: author, text: text });
-        }}
-      >
-        Send
-      </button>
-    </div>
-  );
-}
+import SendForm from "./SendForm";
+import Tittle from "./Tittle";
+import Message from "./Message";
 
 function App() {
-  const [messageList, addMsg] = useState([]);
+
+  const myTheme = createTheme({
+    palette: {
+      type: "light",
+      primary: {
+        main: orange[500]
+      },
+      background: {
+        default: '#009999'
+      }
+    }
+  });
+
+  const [chatList, setChatList] = useState([{ id: "123", name: "chat1" }, { id: "1234", name: "chat2" }, { id: "1235", name: "chat3" }, { id: "1236", name: "chat4" }]);
+
+  const [messageList, setMessageList] = useState([]);
+
   const addMessage = (msg) => {
-    let res = false;
     console.log("addMessage");
     if (msg.auth !== "" && msg.text !== "") {
-      res = true;
-      messageList.push(msg);
-      addMsg([...messageList]);
+      setMessageList(curr => [...curr, msg]);
     }
-    return res;
   };
-
-  const [msg, setMsg] = useState({ auth: "", text: "" });
-
-  function setMessage(msgIn) {
-    console.log("setMessage");
-    setMsg(msgIn);
-  }
 
   useEffect(() => {
     console.log("useEffect");
-    let res = addMessage(msg);
-    if (res) {
+    if (messageList.length && messageList[messageList.length - 1].auth !== "Робот") {
       setTimeout(() => {
-        addMessage({ auth: "Робот", text: `Привет ${msg.auth}!` });
+        addMessage({ auth: "Робот", text: `Привет!` });
       }, 1500);
     }
-  }, [msg]);
+  }, [messageList]);
 
   return (
-    <div className="App">
-      <header className="App-header cont">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Tittle text={"Привет!"} />
-      </header>
-
-      <div className="app-body cont">
-        <SendForm addMsg={setMessage} />
-        <div className="msg-list cont">
-          {messageList.map((msg, idx) => (
-            <div key={idx}>
-              {msg.auth}: {msg.text}
+    <ThemeProvider theme={myTheme}>
+      <CssBaseline />
+      <div className="App">
+        <Grid container spacing={1}>
+          <Grid className="flxCont" item xs={4}>
+            <div className="flxItm brd">
+              <header className="App-header ">
+                <img src={logo} className="App-logo" alt="logo" />
+                <Tittle text={"Привет!"} />
+              </header>
+              <List component="nav" aria-label="main mailbox folders">
+                {chatList.map((itm) => (
+                  <ListItem key={itm.id} button>
+                    <ListItemIcon>
+                      <Chat />
+                    </ListItemIcon>
+                    <ListItemText primary={itm.name} />
+                  </ListItem>
+                ))}
+              </List>
             </div>
-          ))}
-        </div>
-      </div>
-    </div>
+          </Grid>
+          <Grid className="flxCont" container spacing={1} item xs={8}>
+            <Grid className="flxItm" item xs={12}>
+              <div className="msg-list brd">
+                {messageList.map((msg, idx) => (
+                  <Message key={idx} msg={msg} />
+                ))}
+              </div>
+            </Grid>
+            <Grid item xs={12}>
+              <SendForm addMessage={addMessage} />
+            </Grid>
+          </Grid>
+        </Grid>
+      </div >
+    </ThemeProvider>
   );
 }
 
