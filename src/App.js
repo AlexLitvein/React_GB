@@ -19,9 +19,9 @@ import {
 } from "react-router-dom";
 
 let srcChatList = [
-  { id: "1239", name: "chat1", msgs: [{ auth: 'vava', text: 'jlkjlk' }, { auth: 'fapa', text: 'uuuuuu' }] },
-  { id: "1234", name: "chat2", msgs: [{ auth: 'vatttva', text: 'cccc' }, { auth: 'fgapa', text: 'nnnnn' }] },
-  { id: "1235", name: "chat3", msgs: [{ auth: 'lkava', text: 'mmmmm' }, { auth: 'hfapa', text: 'ccccc' }] },
+  { id: "aa", name: "chat1", msgs: [{ auth: 'vava0', text: 'jlkjlk' }, { auth: 'fapa', text: 'uuuuuu' }] },
+  { id: "bb", name: "chat2", msgs: [{ auth: 'katt1', text: 'cccc' }, { auth: 'fgapa', text: 'nnnnn' }] },
+  { id: "cc", name: "chat3", msgs: [{ auth: 'wkav2', text: 'mmmmm' }, { auth: 'hfapa', text: 'ccccc' }] },
 ];
 
 // let srcChatsMsgsLists = [
@@ -32,7 +32,7 @@ let srcChatList = [
 
 function App() {
 
-  const [currChatIdx, setCurrChatIdx] = useState(2);
+  // const [currChatIdx, setCurrChatIdx] = useState(0);
   const myTheme = createTheme({
     palette: {
       type: "light",
@@ -88,16 +88,14 @@ function App() {
 
             <List component="nav" aria-label="main mailbox folders">
               {chatList.map((itm) => (
-                <ListItem key={itm.id} button onClick={() => {
-                  setCurrChatIdx(chatList.findIndex(e => e.id === itm.id))
-                  // console.log(currChatIdx);
-                }}>
+                <ListItem key={itm.id} button >
                   <ListItemIcon>
                     <Chat />
                   </ListItemIcon>
                   {/* <ListItemText primary={itm.name} /> */}
                   {/* <Link to={"/chats/:currChatIdx"}>{itm.name}</Link> */}
-                  <Link to={`/chats/${currChatIdx}`}>{itm.name}</Link>
+                  {/* <Link to={`/chats/${currChatIdx}`}>{itm.name}</Link> */}
+                  <Link to={`/chats/${itm.id}`}>{itm.name}</Link>
                 </ListItem>
               ))}
             </List>
@@ -118,7 +116,7 @@ function App() {
             </Switch> */}
 
             <Switch>
-              <Route path="/chats/:currChatIdx" children={<MessageList chats={chatList} />}>
+              <Route path="/chats/:currChatId" children={<MessageList chats={chatList} />}>
                 {/* <MessageList msgs={srcChatsMsgsLists}></MessageList> */}
               </Route>
             </Switch>

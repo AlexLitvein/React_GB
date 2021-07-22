@@ -4,34 +4,63 @@ import Message from "./Message";
 import SendForm from "./SendForm";
 
 function MessageList(props) {
-    let { currChatIdx } = useParams();
-    console.log(currChatIdx);
+    let { currChatId } = useParams();
+    console.log('MessageList ' +currChatId);   
+    
 
-    const [messageList, setMessageList] = React.useState(props.chats[currChatIdx].msgs); // 
+    const [chats, setChats] = React.useState(props.chats); // 
+    const [msgs, setMsgs] = React.useState([]);
+    // const [msgs, setMsgs] = React.useState(chats[currChatIdx].msgs); 
+
+    // const [currChatIdx, setCurrChatIdx] = React.useState(chats.findIndex(e => e.id === currChatId));
+    const [currChatIdx, setCurrChatIdx] = React.useState(-1);
+    // let prevChatIdx = 0;
 
     // temp
-    React.useEffect(() => { console.log('useEffect MessageList '); });
+    React.useEffect(() => {
+        setCurrChatIdx((curr) => {
+            if(curr >= 0) {
+                chats[curr].msgs = [...msgs];
+            }
+            return chats.findIndex(e => e.id === currChatId);
+        });
+
+        // console.log(`prevChatIdx: ${prevChatIdx} currChatIdx: ${currChatIdx}`);
+        // chats[currChatIdx].msgs = [...msgs];
+        if(currChatIdx >= 0) {
+            setMsgs(chats[currChatIdx].msgs);  
+        }
+    }, [currChatId, currChatIdx]); // 
+
+    // React.useEffect(() => { 
+    //     console.log('mount_unmount'); 
+    // }, []);
 
     const addMessage = (msg) => {
-        console.log("addMessage");
+        // console.log("addMessage");
         if (msg.auth !== "" && msg.text !== "") {
-            setMessageList(curr => [...curr, msg]);
+            setMsgs(curr => [...curr, msg]);
+            // setMsgs(curr => [...chats[currChatIdx].msgs, msg]);  
         }
     };
 
     React.useEffect(() => {
-        if (messageList.length && messageList[messageList.length - 1].auth !== "Робот") {
+        if (msgs.length && msgs[msgs.length - 1].auth !== "Робот") {
             setTimeout(() => {
                 addMessage({ auth: "Робот", text: `Привет!` });
             }, 1500);
         }
-    }, [messageList]);
+    }, [msgs]);
 
     return (
         <>
-            {/* {typeof (currChatIdx).toString()} */}
-            <div className="msg-list flx-grw brd">
-                {messageList.map((msg, idx) => (
+            {/* <div className="msg-chats flx-grw brd">
+                {chats[currChatIdx].msgs.map((msg, idx) => (
+                    <Message key={idx} msg={msg} />
+                ))}
+            </div> */}
+            <div className="msg-chats flx-grw brd">
+                {msgs.map((msg, idx) => (
                     <Message key={idx} msg={msg} />
                 ))}
             </div>
