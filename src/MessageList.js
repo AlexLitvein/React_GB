@@ -4,43 +4,37 @@ import Message from "./Message";
 import SendForm from "./SendForm";
 
 function MessageList(props) {
-    let { currChatId } = useParams();
-    console.log('MessageList ' +currChatId);   
-    
-
-    const [chats, setChats] = React.useState(props.chats); // 
-    const [msgs, setMsgs] = React.useState([]);
-    // const [msgs, setMsgs] = React.useState(chats[currChatIdx].msgs); 
-
-    // const [currChatIdx, setCurrChatIdx] = React.useState(chats.findIndex(e => e.id === currChatId));
+    let { chatId } = useParams();
     const [currChatIdx, setCurrChatIdx] = React.useState(-1);
-    // let prevChatIdx = 0;
 
-    // temp
+    console.log('MessageList ' + chatId);
+
+    const chats = props.chats;
+    const [msgs, setMsgs] = React.useState([]);
+
     React.useEffect(() => {
+        console.log(`chatId changed: ${chatId}`);
+
         setCurrChatIdx((curr) => {
-            if(curr >= 0) {
+            let idx = chats.findIndex(e => e.id === chatId);
+            if (curr >= 0) {
                 chats[curr].msgs = [...msgs];
             }
-            return chats.findIndex(e => e.id === currChatId);
+            setMsgs([...chats[idx].msgs]);
+            console.log(`idx: ${idx} currChatIdx: ${currChatIdx}`);
+            return idx;
         });
 
-        // console.log(`prevChatIdx: ${prevChatIdx} currChatIdx: ${currChatIdx}`);
-        // chats[currChatIdx].msgs = [...msgs];
-        if(currChatIdx >= 0) {
-            setMsgs(chats[currChatIdx].msgs);  
-        }
-    }, [currChatId, currChatIdx]); // 
+        // console.log(`currChatIdx: ${currChatIdx}`);
 
-    // React.useEffect(() => { 
-    //     console.log('mount_unmount'); 
-    // }, []);
+        // if (currChatIdx >= 0) {
+        //     setMsgs([...chats[currChatIdx].msgs]);
+        // }
+    }, [chatId]);
 
     const addMessage = (msg) => {
-        // console.log("addMessage");
         if (msg.auth !== "" && msg.text !== "") {
             setMsgs(curr => [...curr, msg]);
-            // setMsgs(curr => [...chats[currChatIdx].msgs, msg]);  
         }
     };
 
@@ -54,11 +48,6 @@ function MessageList(props) {
 
     return (
         <>
-            {/* <div className="msg-chats flx-grw brd">
-                {chats[currChatIdx].msgs.map((msg, idx) => (
-                    <Message key={idx} msg={msg} />
-                ))}
-            </div> */}
             <div className="msg-chats flx-grw brd">
                 {msgs.map((msg, idx) => (
                     <Message key={idx} msg={msg} />

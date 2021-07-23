@@ -100,7 +100,7 @@ function App() {
             </Switch> */}
 
           <Switch>
-            <Route path="/chats/:currChatId" children={<MessageList chats={chatList} />}>
+            <Route path="/chats/:chatId" children={<MessageList chats={chatList} />}>
               {/* <MessageList msgs={srcChatsMsgsLists}></MessageList> */}
             </Route>
           </Switch>
