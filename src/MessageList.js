@@ -24,12 +24,6 @@ function MessageList(props) {
             console.log(`idx: ${idx} currChatIdx: ${currChatIdx}`);
             return idx;
         });
-
-        // console.log(`currChatIdx: ${currChatIdx}`);
-
-        // if (currChatIdx >= 0) {
-        //     setMsgs([...chats[currChatIdx].msgs]);
-        // }
     }, [chatId]);
 
     const addMessage = (msg) => {

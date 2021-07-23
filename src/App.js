@@ -34,22 +34,6 @@ function App() {
 
   const [chatList, setChatList] = useState(srcChatList);
 
-  // const [messageList, setMessageList] = useState(srcChatsMsgsLists[currChatIdx]);
-  // const addMessage = (msg) => {
-  //   console.log("addMessage");
-  //   if (msg.auth !== "" && msg.text !== "") {
-  //     setMessageList(curr => [...curr, msg]);
-  //   }
-  // };
-  // useEffect(() => {
-  //   console.log("useEffect");
-  //   if (messageList.length && messageList[messageList.length - 1].auth !== "Робот") {
-  //     setTimeout(() => {
-  //       addMessage({ auth: "Робот", text: `Привет!` });
-  //     }, 1500);
-  //   }
-  // }, [messageList]);
-
   return (
     <BrowserRouter>
       <div className="App ">
@@ -62,7 +46,7 @@ function App() {
                 <Link to="/profile">profile</Link>
               </li>
               <li>
-                <Link to="/chats">chats</Link>
+                <Link to="/chats/bb">chats</Link>
               </li>
               <li>
                 <Link to="/">Home</Link>
@@ -76,44 +60,27 @@ function App() {
                 <ListItemIcon>
                   <Chat />
                 </ListItemIcon>
-                {/* <ListItemText primary={itm.name} /> */}
-                {/* <Link to={"/chats/:currChatIdx"}>{itm.name}</Link> */}
-                {/* <Link to={`/chats/${currChatIdx}`}>{itm.name}</Link> */}
                 <Link to={`/chats/${itm.id}`}>{itm.name}</Link>
               </ListItem>
             ))}
           </List>
         </Box>
         <Box className="flxCont flx-col brd App__main">
-
-          {/* <Switch>
-              <Route path="/profile">
-              </Route>
-
-              <Route path="/chats/:currChatIdx">
-                <MessageList msgs={srcChatsMsgsLists}></MessageList>
-              </Route>
-
-              <Route>
-                <h3>Page not found</h3>
-              </Route>
-            </Switch> */}
-
           <Switch>
+            <Route path="/profile"><h1>Профиль</h1>
+            </Route>
             <Route path="/chats/:chatId" children={<MessageList chats={chatList} />}>
-              {/* <MessageList msgs={srcChatsMsgsLists}></MessageList> */}
+            </Route>
+            <Route path="/"><h1>Home</h1>
+            </Route>
+            <Route>
+              <h3>Page not found</h3>
             </Route>
           </Switch>
         </Box>
       </div >
     </BrowserRouter>
   );
-
-  // return (
-  //     <div className="App ">
-  //         <SendForm addMessage={addMessage} />
-  //     </div >
-  // );
 }
 
 export default App;
