@@ -21,38 +21,34 @@ const SendForm = (props) => {
   };
 
   return (
-    <React.StrictMode>
-      <Box className="p4 flxCont brd">
-        <Box className="flxCont flx-col flx-grw">
-          <TextField
-            id="standard-basic"
-            label="Author"
-            value={author}
-            onChange={handleChange}
-          />
-          <TextField
-            id="standard-multiline-flexible"
-            ref={inputRef}
-            label="Message"
-            multiline
-            maxRows={4}
-            value={text}
-            onChange={handleText}
-          />
-        </Box>
-        <Button className="" variant="contained" onClick={() => {
-          props.addMessage({ auth: author, text: text });
-          inputRef.current?.focus();
-          // console.log(inputRef.current);
-          // setText('');
-        }}>
-          Send
-        </Button>
-
+    <Box className="p4 flxCont brd">
+      <Box className="flxCont flx-col flx-grw">
+        <TextField
+          id="standard-basic"
+          label="Author"
+          value={author}
+          onChange={handleChange}
+        />
+        <TextField
+          id="standard-multiline-flexible"
+          ref={inputRef}
+          label="Message"
+          multiline
+          maxRows={4}
+          value={text}
+          onChange={handleText}
+        />
       </Box>
-    </React.StrictMode>
+      <Button className="" variant="contained" onClick={() => {
+        props.addMessage({ auth: author, text: text });
+        inputRef.current?.focus();
+        // console.log(inputRef.current);
+        // setText('');
+      }}>
+        Send
+      </Button>
+    </Box>
   );
-
 }
 
 export default SendForm;

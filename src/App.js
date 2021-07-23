@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Box, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import orange from '@material-ui/core/colors/orange';
+// import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+// import CssBaseline from "@material-ui/core/CssBaseline";
+// import orange from '@material-ui/core/colors/orange';
 import { Chat } from '@material-ui/icons';
 import logo from "./logo.svg";
 import "./App.css";
@@ -32,19 +32,6 @@ let srcChatList = [
 
 function App() {
 
-  // const [currChatIdx, setCurrChatIdx] = useState(0);
-  const myTheme = createTheme({
-    palette: {
-      type: "light",
-      primary: {
-        main: orange[500]
-      },
-      background: {
-        default: '#009999'
-      }
-    }
-  });
-
   const [chatList, setChatList] = useState(srcChatList);
 
   // const [messageList, setMessageList] = useState(srcChatsMsgsLists[currChatIdx]);
@@ -65,44 +52,41 @@ function App() {
 
   return (
     <BrowserRouter>
-      <ThemeProvider theme={myTheme}>
-        <CssBaseline />
+      <div className="App ">
+        <Box className="flxCont flx-col brd App__sidebar">
+          <header className="App-header ">
+            <img src={logo} className="App-logo" alt="logo" />
+            <Tittle text={"Привет!"} />
+            <ul>
+              <li>
+                <Link to="/profile">profile</Link>
+              </li>
+              <li>
+                <Link to="/chats">chats</Link>
+              </li>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+            </ul>
+          </header>
 
-        <div className="App ">
-          <Box className="flxCont flx-col brd App__sidebar">
-            <header className="App-header ">
-              <img src={logo} className="App-logo" alt="logo" />
-              <Tittle text={"Привет!"} />
-              <ul>
-                <li>
-                  <Link to="/profile">profile</Link>
-                </li>
-                <li>
-                  <Link to="/chats">chats</Link>
-                </li>
-                <li>
-                  <Link to="/">Home</Link>
-                </li>
-              </ul>
-            </header>
+          <List component="nav" aria-label="main mailbox folders">
+            {chatList.map((itm) => (
+              <ListItem key={itm.id} button >
+                <ListItemIcon>
+                  <Chat />
+                </ListItemIcon>
+                {/* <ListItemText primary={itm.name} /> */}
+                {/* <Link to={"/chats/:currChatIdx"}>{itm.name}</Link> */}
+                {/* <Link to={`/chats/${currChatIdx}`}>{itm.name}</Link> */}
+                <Link to={`/chats/${itm.id}`}>{itm.name}</Link>
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+        <Box className="flxCont flx-col brd App__main">
 
-            <List component="nav" aria-label="main mailbox folders">
-              {chatList.map((itm) => (
-                <ListItem key={itm.id} button >
-                  <ListItemIcon>
-                    <Chat />
-                  </ListItemIcon>
-                  {/* <ListItemText primary={itm.name} /> */}
-                  {/* <Link to={"/chats/:currChatIdx"}>{itm.name}</Link> */}
-                  {/* <Link to={`/chats/${currChatIdx}`}>{itm.name}</Link> */}
-                  <Link to={`/chats/${itm.id}`}>{itm.name}</Link>
-                </ListItem>
-              ))}
-            </List>
-          </Box>
-          <Box className="flxCont flx-col brd App__main">
-
-            {/* <Switch>
+          {/* <Switch>
               <Route path="/profile">
               </Route>
 
@@ -115,15 +99,13 @@ function App() {
               </Route>
             </Switch> */}
 
-            <Switch>
-              <Route path="/chats/:currChatId" children={<MessageList chats={chatList} />}>
-                {/* <MessageList msgs={srcChatsMsgsLists}></MessageList> */}
-              </Route>
-            </Switch>
-          </Box>
-        </div >
-
-      </ThemeProvider>
+          <Switch>
+            <Route path="/chats/:currChatId" children={<MessageList chats={chatList} />}>
+              {/* <MessageList msgs={srcChatsMsgsLists}></MessageList> */}
+            </Route>
+          </Switch>
+        </Box>
+      </div >
     </BrowserRouter>
   );
 
