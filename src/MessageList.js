@@ -1,9 +1,14 @@
 import React from "react";
+// import { useSelector, useDispatch } from 'react-redux';
+// import { decrement, increment } from './chatsSlice';
 import { useParams } from "react-router-dom";
 import Message from "./Message";
 import SendForm from "./SendForm";
 
 function MessageList(props) {
+    // const count = useSelector((state) => state.counter.value);
+    // const dispatch = useDispatch();
+
     let { chatId } = useParams();
     const [currChatIdx, setCurrChatIdx] = React.useState(-1);
 

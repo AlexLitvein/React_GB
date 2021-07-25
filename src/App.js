@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Box, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
-// import { createTheme, ThemeProvider } from "@material-ui/core/styles";
-// import CssBaseline from "@material-ui/core/CssBaseline";
-// import orange from '@material-ui/core/colors/orange';
+import { Button, Box, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
 import { Chat } from '@material-ui/icons';
 import logo from "./logo.svg";
 import "./App.css";
 // import SendForm from "./SendForm";
 import Tittle from "./Tittle";
 import MessageList from "./MessageList";
+import Profile from "./reducers/profile";
+import { useDispatch, useSelector } from "react-redux";
+import { changeName } from "./actions/profile";
 
 import {
   BrowserRouter,
@@ -33,6 +33,13 @@ let srcChatList = [
 function App() {
 
   const [chatList, setChatList] = useState(srcChatList);
+
+  const dispatch = useDispatch();
+  const handleName = (newName) => {
+    dispatch(changeName(newName));
+  }
+
+  const {name, age} = useSelector(state=>state.profile);
 
   return (
     <BrowserRouter>
@@ -67,7 +74,7 @@ function App() {
         </Box>
         <Box className="flxCont flx-col brd App__main">
           <Switch>
-            <Route path="/profile"><h1>Профиль</h1>
+            <Route path="/profile"><Profile />
             </Route>
             <Route path="/chats/:chatId" children={<MessageList chats={chatList} />}>
             </Route>
@@ -78,6 +85,8 @@ function App() {
             </Route>
           </Switch>
         </Box>
+        <span>{name}</span>
+        <Button onClick={()=>{handleName('Pete')}}>Button</Button>
       </div >
     </BrowserRouter>
   );
