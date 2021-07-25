@@ -1,6 +1,12 @@
+* {
+  box-sizing: border-box;
+}
+
 .App {
-  /* background-color: #292d31; */
-  /* color:blanchedalmond; */
+  display: flex;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
 }
 
 .App-logo {
@@ -20,6 +26,8 @@
   align-items: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .App-link {
@@ -38,22 +46,39 @@
 .brd{
   border: 2px solid yellowgreen;
   border-radius: 10px;
+  margin: 2px;
 }
 
 .flxCont{
-  display: flex;
-  padding: 2px;
+  display: flex; 
 }
 
-.flxItm{
+.flx-col{
+  flex-direction: column;
+}
+
+.flx-grw{
   flex-grow: 1;
 }
 
-.msg-list{
-  overflow-y: auto;
-  height: 80vh;
+.p4{
+  padding: 4px;
 }
 
-.send-form{
-  height: 20vh;
+.App__sidebar{
+  flex-grow: 1;
 }
+
+.App__main{
+  flex-grow: 3;
+  justify-content: space-between;
+}
+
+.msg-list{
+  overflow-y:auto;
+}
+
+.Chat__send-form{
+
+}
+
