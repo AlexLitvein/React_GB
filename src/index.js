@@ -10,9 +10,10 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import orange from '@material-ui/core/colors/orange';
 
 import { configureStore } from '@reduxjs/toolkit'
-import counterSlice from './profile/profileSlice';
-// import counterReducer from '../features/counter/counterSlice'
-const store = configureStore({ reducer: { showName: counterSlice } });
+import profileSlice from './profile/profileSlice';
+// import profileSlice from './profile/profileSlice';
+// import counterReducer from '../features/counter/profileSlice'
+const store = configureStore({ reducer: { showName: profileSlice } });
 
 const myTheme = createTheme({
   palette: {

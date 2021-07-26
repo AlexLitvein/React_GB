@@ -1,7 +1,7 @@
 function Message(props) {
   return (
     <div>
-      {props.msg.auth}: {props.msg.text}
+      {props.show && props.msg.auth}{props.show && ': '}{props.msg.text}
     </div>
   );
 }

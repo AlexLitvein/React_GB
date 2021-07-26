@@ -31,7 +31,7 @@ const SendForm = (props) => {
         />
         <TextField
           id="standard-multiline-flexible"
-          ref={inputRef}
+          inputRef={inputRef}
           label="Message"
           multiline
           maxRows={4}
@@ -42,8 +42,7 @@ const SendForm = (props) => {
       <Button className="" variant="contained" onClick={() => {
         props.addMessage({ auth: author, text: text });
         inputRef.current?.focus();
-        // console.log(inputRef.current);
-        // setText('');
+        setText('');
       }}>
         Send
       </Button>
