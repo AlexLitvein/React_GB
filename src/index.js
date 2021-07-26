@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import store from './store'
+// import store from './store'
 import { Provider } from 'react-redux'
 import './index.css';
 import App from './App';
@@ -8,6 +8,11 @@ import reportWebVitals from './reportWebVitals';
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import orange from '@material-ui/core/colors/orange';
+
+import { configureStore } from '@reduxjs/toolkit'
+import counterSlice from './profile/profileSlice';
+// import counterReducer from '../features/counter/counterSlice'
+const store = configureStore({ reducer: { counter: counterSlice } });
 
 const myTheme = createTheme({
   palette: {
