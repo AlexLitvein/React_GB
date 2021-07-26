@@ -3,7 +3,7 @@ import { Button, Box, Checkbox } from '@material-ui/core';
 import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
 
-import { decrement, increment } from './profile/profileSlice';
+import { decrement, increment, show } from './profile/profileSlice';
 
 let srcChatList = [
   { id: "aa", name: "chat1", msgs: [{ auth: 'vava0', text: 'jlkjlk' }, { auth: 'fapa', text: 'uuuuuu' }] },
@@ -14,19 +14,24 @@ let srcChatList = [
 
 function App() {
 
-  const count = useSelector((state) => state.counter.value);
+  const showName = useSelector((state) => state.showName.value);
   const dispatch = useDispatch();
+  const [cb1, setCb1] = useState(false);
 
   return (
     <div>
       <div>
-        <button aria-label="Increment value" onClick={() => dispatch(increment())} >
+        <button aria-label="Increment value" onClick={() => dispatch(show(false))} >
           Increment
         </button>
-        <span>{count}</span>
+        <span>{showName.toString()}</span>
         <button aria-label="Decrement value" onClick={() => dispatch(decrement())} >
           Decrement
         </button>
+        <Checkbox value={cb1} onClick={() => {
+          setCb1(curr => !curr);
+          dispatch(show(cb1));
+        }} />
       </div>
     </div>
   );

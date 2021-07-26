@@ -12,7 +12,7 @@ import orange from '@material-ui/core/colors/orange';
 import { configureStore } from '@reduxjs/toolkit'
 import counterSlice from './profile/profileSlice';
 // import counterReducer from '../features/counter/counterSlice'
-const store = configureStore({ reducer: { counter: counterSlice } });
+const store = configureStore({ reducer: { showName: counterSlice } });
 
 const myTheme = createTheme({
   palette: {
