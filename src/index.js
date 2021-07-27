@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import store from './store'
 import { Provider } from 'react-redux'
 import './index.css';
 import App from './App';
@@ -8,11 +7,10 @@ import reportWebVitals from './reportWebVitals';
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import orange from '@material-ui/core/colors/orange';
-
+import { BrowserRouter } from "react-router-dom";
 import { configureStore } from '@reduxjs/toolkit'
 import profileSlice from './profile/profileSlice';
-// import profileSlice from './profile/profileSlice';
-// import counterReducer from '../features/counter/profileSlice'
+
 const store = configureStore({ reducer: { showName: profileSlice } });
 
 const myTheme = createTheme({
@@ -32,7 +30,9 @@ ReactDOM.render(
     <ThemeProvider theme={myTheme}>
       <CssBaseline />
       <Provider store={store}>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </Provider>
     </ThemeProvider>
   </React.StrictMode>,

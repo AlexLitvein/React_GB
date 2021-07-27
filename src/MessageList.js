@@ -1,6 +1,4 @@
 import React from "react";
-// import { useSelector, useDispatch } from 'react-redux';
-// import { decrement, increment } from './chatsSlice';
 import { useParams } from "react-router-dom";
 import Message from "./Message";
 import SendForm from "./SendForm";

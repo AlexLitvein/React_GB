@@ -12,7 +12,7 @@ export default function Profile() {
         <div>
             <p>Vasa</p>
             <p>33</p>
-            <p>{cb1.toString()}</p>
+            <span>Show name</span>
             <Checkbox defaultChecked={cb1} onChange={(e) => {
                 setCb1(curr => e.target.checked);
                 dispatch(show(e.target.checked)); // если передавать cb1 фигня выходит

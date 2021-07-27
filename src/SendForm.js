@@ -7,7 +7,6 @@ const SendForm = (props) => {
 
   React.useEffect(() => {
     inputRef.current?.focus();
-    // console.log(inputRef.current);
   }, []);
 
   const [author, setAuthor] = React.useState("Vasa");
@@ -19,6 +18,12 @@ const SendForm = (props) => {
   const handleText = (event) => {
     setText(event.target.value);
   };
+
+  const addMessage = () => {
+    props.addMessage({ auth: author, text: text });
+    inputRef.current?.focus();
+    setText('');
+  }
 
   return (
     <Box className="p4 flxCont brd">
@@ -39,11 +44,7 @@ const SendForm = (props) => {
           onChange={handleText}
         />
       </Box>
-      <Button className="" variant="contained" onClick={() => {
-        props.addMessage({ auth: author, text: text });
-        inputRef.current?.focus();
-        setText('');
-      }}>
+      <Button className="" variant="contained" onClick={addMessage}>
         Send
       </Button>
     </Box>
