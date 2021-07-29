@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { Button, Box, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import logo from "./logo.svg";
 import "./App.css";
 import Tittle from "./Tittle";
@@ -9,19 +8,10 @@ import {
   Switch,
   Link,
   Route,
-  useParams
 } from "react-router-dom";
 import ChatList from "./chatList";
 
-let srcChatList = [
-  { id: "aa", name: "chat1", msgs: [{ auth: 'vava0', text: 'jlkjlk' }, { auth: 'fapa', text: 'uuuuuu' }] },
-  { id: "bb", name: "chat2", msgs: [{ auth: 'katt1', text: 'cccc' }, { auth: 'fgapa', text: 'nnnnn' }] },
-  { id: "cc", name: "chat3", msgs: [{ auth: 'wkav2', text: 'mmmmm' }, { auth: 'hfapa', text: 'ccccc' }] },
-];
-
 function App() {
-  const [chatList, setChatList] = useState(srcChatList);
-
   return (
     <div className="App ">
       <Box className="flxCont flx-col brd App__sidebar">
@@ -40,13 +30,13 @@ function App() {
             </li>
           </ul>
         </header>
-        <ChatList chats={chatList}></ChatList>
+        <ChatList />
       </Box>
       <Box className="flxCont flx-col brd App__main">
         <Switch>
           <Route path="/profile"><Profile />
           </Route>
-          <Route path="/chats/:chatId" children={<MessageList chats={chatList} />}>
+          <Route path="/chats/:chatId" children={<MessageList />}>
           </Route>
           <Route path="/"><h1>Home</h1>
           </Route>

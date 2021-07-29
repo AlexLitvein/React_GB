@@ -10,9 +10,10 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import orange from '@material-ui/core/colors/orange';
 import { BrowserRouter } from "react-router-dom";
 import { configureStore } from '@reduxjs/toolkit'
-import profileSlice from './profile/profileSlice';
+import profileSlice from './reducerProfile/slice';
+import chatsSlice from './reducerChats/slice';
 
-const store = configureStore({ reducer: { showName: profileSlice } });
+const store = configureStore({ reducer: { profile: profileSlice, chatsData: chatsSlice } });
 
 const myTheme = createTheme({
   palette: {

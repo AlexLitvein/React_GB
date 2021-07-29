@@ -1,19 +1,32 @@
 import { Checkbox } from '@material-ui/core';
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { show } from './profile/profileSlice';
+import { getShowName } from './reducerProfile/selector';
+import { showName, setName } from './reducerProfile/slice';
 
 export default function Profile() {
-    const showName = useSelector((state) => state.showName.value);
+    const bShowName = useSelector(getShowName);
     const dispatch = useDispatch();
+
+    const [value, setValue] = useState('');
+    const handleChange = useCallback((e) => {
+        setValue(e.target.value);
+    }, []);
+
+    const _setName = useCallback(() => {
+        dispatch(setName(value));
+    }, [dispatch, value]);
+
 
     return (
         <div>
-            <p>Vasa</p>
-            <p>33</p>
+            <div>
+                <input type="text" value={value} onChange={handleChange} />
+                <button onClick={_setName}>Change Name</button>
+            </div>
             <span>Show name</span>
-            <Checkbox defaultChecked={showName} onChange={(e) => {
-                dispatch(show(e.target.checked));
+            <Checkbox defaultChecked={bShowName} onChange={(e) => {
+                dispatch(showName(e.target.checked));
             }} />
         </div>
     );
