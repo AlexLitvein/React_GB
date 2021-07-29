@@ -3,7 +3,11 @@ import { useParams } from "react-router-dom";
 import Message from "./Message";
 import SendForm from "./SendForm";
 
+import { useSelector } from "react-redux";
+
 function MessageList(props) {
+    const showName = useSelector((state) => state.showName.value);
+
     let { chatId } = useParams();
     const [currChatIdx, setCurrChatIdx] = React.useState(-1);
 
@@ -44,7 +48,7 @@ function MessageList(props) {
         <>
             <div className="msg-chats flx-grw brd">
                 {msgs.map((msg, idx) => (
-                    <Message key={idx} msg={msg} />
+                    <Message key={idx} msg={msg} show={showName} />
                 ))}
             </div>
             <SendForm addMessage={addMessage} />

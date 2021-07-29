@@ -7,7 +7,6 @@ const SendForm = (props) => {
 
   React.useEffect(() => {
     inputRef.current?.focus();
-    // console.log(inputRef.current);
   }, []);
 
   const [author, setAuthor] = React.useState("Vasa");
@@ -20,6 +19,12 @@ const SendForm = (props) => {
     setText(event.target.value);
   };
 
+  const addMessage = () => {
+    props.addMessage({ auth: author, text: text });
+    inputRef.current?.focus();
+    setText('');
+  }
+
   return (
     <Box className="p4 flxCont brd">
       <Box className="flxCont flx-col flx-grw">
@@ -31,7 +36,7 @@ const SendForm = (props) => {
         />
         <TextField
           id="standard-multiline-flexible"
-          ref={inputRef}
+          inputRef={inputRef}
           label="Message"
           multiline
           maxRows={4}
@@ -39,12 +44,7 @@ const SendForm = (props) => {
           onChange={handleText}
         />
       </Box>
-      <Button className="" variant="contained" onClick={() => {
-        props.addMessage({ auth: author, text: text });
-        inputRef.current?.focus();
-        // console.log(inputRef.current);
-        // setText('');
-      }}>
+      <Button className="" variant="contained" onClick={addMessage}>
         Send
       </Button>
     </Box>
