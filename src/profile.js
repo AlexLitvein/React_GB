@@ -6,16 +6,14 @@ import { show } from './profile/profileSlice';
 export default function Profile() {
     const showName = useSelector((state) => state.showName.value);
     const dispatch = useDispatch();
-    const [cb1, setCb1] = useState(showName);
 
     return (
         <div>
             <p>Vasa</p>
             <p>33</p>
             <span>Show name</span>
-            <Checkbox defaultChecked={cb1} onChange={(e) => {
-                setCb1(curr => e.target.checked);
-                dispatch(show(e.target.checked)); // если передавать cb1 фигня выходит
+            <Checkbox defaultChecked={showName} onChange={(e) => {
+                dispatch(show(e.target.checked));
             }} />
         </div>
     );
