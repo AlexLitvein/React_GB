@@ -14,12 +14,11 @@ const chatSlice = createSlice({
 
     reducers: { // An object of "case reducers". Key names will be used to generate actions.        
         addChat: (state, action) => {
-            state.chats = [...state.chats, action.payload];
-            console.log(state);
+            state.chats.push(action.payload);
         },
 
         delChat: (state, action) => {
-            state.chats = state.chats.filter((e) => e.id !== action.payload);
+            state.chats.splice(state.chats.findIndex(e => e.id === action.payload), 1);
         },
 
         addMsg: (state, action) => {
