@@ -1,9 +1,12 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Box, Button } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField'
+import TextField from '@material-ui/core/TextField';
+import { getName } from './reducerProfile/selector';
 
 const SendForm = (props) => {
   let inputRef = React.useRef(null);
+  const profileName = useSelector(getName);
 
   React.useEffect(() => {
     inputRef.current?.focus();
@@ -20,7 +23,7 @@ const SendForm = (props) => {
   };
 
   const addMessage = () => {
-    props.addMessage({ auth: author, text: text });
+    props.addMessage({ auth: profileName || author, text: text });
     inputRef.current?.focus();
     setText('');
   }

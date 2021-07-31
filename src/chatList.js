@@ -1,31 +1,31 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Button, Box, List, ListItem, ListItemText, ListItemIcon, TextField } from '@material-ui/core';
+import React, { useRef, useCallback } from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import { Button, Box, List, ListItem, ListItemIcon, TextField } from '@material-ui/core';
 import { Chat } from '@material-ui/icons';
 import { Link } from "react-router-dom";
 import DeleteIcon from '@material-ui/icons/Delete';
+import { getChats } from './reducerChats/selector';
+import { addChat, delChat } from './reducerChats/slice';
 
-const ChatList = (props) => {
-    const chats = props.chats;
-    const [trig, setTrig] = useState(true);
+const ChatList = () => {
+    const chats = useSelector(getChats);
+    const dispatch = useDispatch();
     const inputRef = useRef(null);
 
-    const addChat = () => {
-        const newChat = { id: Date.now().toString(), name: inputRef.current.value, msgs: [] };
-        chats.push(newChat);
-        inputRef.current.value = '';
-        setTrig(curr => !curr);
+    const _delChat = (id) => {
+        dispatch(delChat(id));
     };
 
-    const delChat = (id) => {
-        let idx = chats.findIndex(e => e.id === id);
-        chats.splice(idx, 1);
-        setTrig(curr => !curr);
-    };
+    const _addChat = useCallback(() => {
+        const newChat = { id: Date.now().toString(), name: inputRef.current.value, msgs: [] };
+        dispatch(addChat(newChat));
+        inputRef.current.value = '';
+    }, [dispatch]);
 
     return (
         <Box>
             <TextField inputRef={inputRef} label="Имя чата"></TextField>
-            <Button variant="contained" onClick={addChat}>Add</Button>
+            <Button variant="contained" onClick={_addChat}>Add</Button>
             <List component="nav" aria-label="main mailbox folders">
                 {chats.map((itm) => (
                     <ListItem key={itm.id} button >
@@ -36,7 +36,7 @@ const ChatList = (props) => {
                         <Button
                             variant="contained"
                             startIcon={<DeleteIcon />}
-                            onClick={() => { delChat(itm.id); }} // а как еще передать аргумент в фунцию, иначе она вызывается сразу
+                            onClick={() => { _delChat(itm.id); }} // а как еще передать аргумент в фунцию, иначе она вызывается сразу
                         >
                             Delete
                         </Button>
