@@ -13,8 +13,15 @@ export const delChat = (val) => ({
     payload: val
 });
 
-export const addMsg = (val) => ({
+export const addMsg = (chatId, msg) => ({
     type: CHATS_ADD_MSG,
-    payload: val
+    id: chatId,
+    msg: msg
 });
 
+export const addMessageWithThunk = (chatId, msg) => (dispatch, getState) => {
+    dispatch(addMsg(chatId, msg));
+    if (msg.auth !== "Робот") {
+        setTimeout(() => dispatch(addMsg(chatId, { auth: "Робот", text: `Привет!` })), 1000);
+    }
+}

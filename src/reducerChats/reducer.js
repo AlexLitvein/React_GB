@@ -13,12 +13,14 @@ export default function chatsReducer(state = initialState, action) {
     switch (action.type) {
         case actions.CHATS_ADD_CHAT:
             return { chats: [...state.chats, action.payload] };
+
         case actions.CHATS_DEL_CHAT:
             return { chats: state.chats.filter(e => e.id !== action.payload) };
+
         case actions.CHATS_ADD_MSG:
         {
-            const currChat = state.chats.find(e => e.id === action.payload.id);
-            currChat.msgs.push(action.payload.msg);
+            const currChat = state.chats.find(e => e.id === action.id);
+            currChat.msgs.push(action.msg);
             return {  
                 chats: [...state.chats]
             };

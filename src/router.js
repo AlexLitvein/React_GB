@@ -8,9 +8,9 @@ const ChatRouter = () => {
         <Switch>
             <Route path="/profile"><Profile />
             </Route>
-            <Route path="/chats/:chatId" children={<MessageList />}>
-            </Route>
-            <Route path="/"><h1>Home</h1>
+            <Route path="/chats/:chatId" component={MessageList} />
+            <Route path="/">
+                <h1>Home</h1>
             </Route>
             <Route>
                 <h3>Page not found</h3>

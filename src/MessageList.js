@@ -5,22 +5,17 @@ import SendForm from "./SendForm";
 import { useSelector, useDispatch } from "react-redux";
 import { getShowName } from './reducerProfile/selectors';
 import { getChats } from './reducerChats/selectors';
-import { addMsg } from './reducerChats/actions';
+import { addMsg, addMessageWithThunk } from './reducerChats/actions';
 
 function MessageList() {
     const bShowName = useSelector(getShowName);
     const chats = useSelector(getChats);
     const dispatch = useDispatch();
+    let { chatId } = useParams();    
 
-    let { chatId } = useParams();
-    
     const addMessage = (msg) => {
         if (msg.auth !== "" && msg.text !== "") {
-            dispatch(addMsg({ id: chatId, msg: msg }));
-            if (msg.auth !== "Робот") {
-                setTimeout(()=>dispatch(addMsg({ id: chatId, msg: { auth: "Робот", text: `Привет!` } })),
-                1500);                
-            }
+            dispatch(addMessageWithThunk(chatId, msg));            
         }
     };
 

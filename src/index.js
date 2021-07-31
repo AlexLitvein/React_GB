@@ -10,13 +10,18 @@ import orange from '@material-ui/core/colors/orange';
 import { BrowserRouter } from "react-router-dom";
 import profileReducer from './reducerProfile/reducer';
 import chatsReducer from './reducerChats/reducer';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
 
 const rootReducer = combineReducers({ profile: profileReducer, chatsData: chatsReducer });
-const store = createStore(rootReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ &&
-  window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+// const store = createStore(rootReducer,
+//   window.__REDUX_DEVTOOLS_EXTENSION__ &&
+//   window.__REDUX_DEVTOOLS_EXTENSION__()
+// );
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
+
 
 const myTheme = createTheme({
   palette: {

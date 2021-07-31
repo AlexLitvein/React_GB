@@ -7,3 +7,12 @@
 - [x] BrowserRouter нужно унести в файл, где происходит вызов ReactDOM.render
 говорила об этом на уроке
 
+- [x] не нужно передавать контент как children
+<Route path="/chats/:chatId" children={<MessageList chats={chatList} />}>
+
+- [x] а еще для того, чтобы не оставлять пустой тег, вы можете использовать самозакрывающийся тег, как в примере выше
+<Route path="/chats/:chatId" children={MessageList}></Route>
+
+- [x] не нужно, пожалуйста, использовать никаких утилит
+мы осваиваем азы редакса
+import { createSlice } from '@reduxjs/toolkit';

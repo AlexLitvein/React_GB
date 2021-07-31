@@ -2,7 +2,7 @@ import * as actions from "./actions"
 
 const initialState = {
   showName: true,
-  name: 'Default'
+  name: 'Your name'
 }
 
 export default function profileReducer(state = initialState, action) {
