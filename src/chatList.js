@@ -26,13 +26,13 @@ const ChatList = () => {
         <Box>
             <TextField inputRef={inputRef} label="Имя чата"></TextField>
             <Button variant="contained" onClick={_addChat}>Add</Button>
-            <List component="nav" aria-label="main mailbox folders">
+            <List component="nav" >
                 {chats.map((itm) => (
                     <ListItem key={itm.id} button >
                         <ListItemIcon>
                             <Chat />
                         </ListItemIcon>
-                        <Link underline='none' to={`/chats/${itm.id}`}>{itm.name}</Link>
+                        <Link to={`/chats/${itm.id}`}>{itm.name}</Link>
                         <Button
                             variant="contained"
                             startIcon={<DeleteIcon />}
