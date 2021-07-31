@@ -3,17 +3,20 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
 import './index.css';
 import App from './App';
-// import App from './hookContextTest/App';
 import reportWebVitals from './reportWebVitals';
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import orange from '@material-ui/core/colors/orange';
 import { BrowserRouter } from "react-router-dom";
-import { configureStore } from '@reduxjs/toolkit'
-import profileSlice from './reducerProfile/slice';
-import chatsSlice from './reducerChats/slice';
+import profileReducer from './reducerProfile/reducer';
+import chatsReducer from './reducerChats/reducer';
+import { createStore, combineReducers } from 'redux';
 
-const store = configureStore({ reducer: { profile: profileSlice, chatsData: chatsSlice } });
+const rootReducer = combineReducers({ profile: profileReducer, chatsData: chatsReducer });
+const store = createStore(rootReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ &&
+  window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 const myTheme = createTheme({
   palette: {

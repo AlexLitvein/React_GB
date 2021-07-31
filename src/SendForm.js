@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Box, Button } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
-import { getName } from './reducerProfile/selector';
+import { getName } from './reducerProfile/selectors';
 
 const SendForm = (props) => {
   let inputRef = React.useRef(null);
@@ -12,7 +12,7 @@ const SendForm = (props) => {
     inputRef.current?.focus();
   }, []);
 
-  const [author, setAuthor] = React.useState("Vasa");
+  const [author, setAuthor] = React.useState(profileName);
   const handleChange = (event) => {
     setAuthor(event.target.value);
   };
@@ -23,7 +23,7 @@ const SendForm = (props) => {
   };
 
   const addMessage = () => {
-    props.addMessage({ auth: profileName || author, text: text });
+    props.addMessage({ auth: author || profileName, text: text });
     inputRef.current?.focus();
     setText('');
   }

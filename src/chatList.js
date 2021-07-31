@@ -4,10 +4,10 @@ import { Button, Box, List, ListItem, ListItemIcon, TextField } from '@material-
 import { Chat } from '@material-ui/icons';
 import { Link } from "react-router-dom";
 import DeleteIcon from '@material-ui/icons/Delete';
-import { getChats } from './reducerChats/selector';
-import { addChat, delChat } from './reducerChats/slice';
+import { getChats } from './reducerChats/selectors';
+import { addChat, delChat } from './reducerChats/actions';
 
-const ChatList = () => {
+const ChatList = () => {    
     const chats = useSelector(getChats);
     const dispatch = useDispatch();
     const inputRef = useRef(null);

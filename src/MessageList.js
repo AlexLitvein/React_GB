@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import Message from "./Message";
 import SendForm from "./SendForm";
 import { useSelector, useDispatch } from "react-redux";
-import { getShowName } from './reducerProfile/selector';
-import { getChats } from './reducerChats/selector';
-import { addMsg } from './reducerChats/slice';
+import { getShowName } from './reducerProfile/selectors';
+import { getChats } from './reducerChats/selectors';
+import { addMsg } from './reducerChats/actions';
 
 function MessageList() {
     const bShowName = useSelector(getShowName);
