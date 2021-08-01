@@ -15,7 +15,7 @@ function MessageList() {
 
     const addMessage = (msg) => {
         if (msg.auth !== "" && msg.text !== "") {
-            dispatch(addMessageWithThunk(chatId, msg));            
+            dispatch(addMsg(chatId, msg));         
         }
     };
 

@@ -1,9 +1,10 @@
 import profileReducer from './reducerProfile/reducer';
 import chatsReducer from './reducerChats/reducer';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import createSagaMiddleware from 'redux-saga'
+import MySaga from './saga';
 
 const persistConfig = {
     key: 'root',
@@ -15,7 +16,10 @@ const rootReducer = combineReducers({ profile: profileReducer, chatsData: chatsR
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const MyStore = createStore(persistedReducer, composeEnhancers(applyMiddleware(thunk)));
+
+const sagaMiddleware = createSagaMiddleware();
+const MyStore = createStore(persistedReducer, composeEnhancers(applyMiddleware(sagaMiddleware)));
+sagaMiddleware.run(MySaga);
 
 export const persistor = persistStore(MyStore);
 export default MyStore;
