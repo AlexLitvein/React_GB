@@ -4,10 +4,10 @@ import { Button, Box, List, ListItem, ListItemIcon, TextField } from '@material-
 import { Chat } from '@material-ui/icons';
 import { Link } from "react-router-dom";
 import DeleteIcon from '@material-ui/icons/Delete';
-import { getChats } from './reducerChats/selector';
-import { addChat, delChat } from './reducerChats/slice';
+import { getChats } from './reducerChats/selectors';
+import { addChat, delChat } from './reducerChats/actions';
 
-const ChatList = () => {
+const ChatList = () => {    
     const chats = useSelector(getChats);
     const dispatch = useDispatch();
     const inputRef = useRef(null);
@@ -26,13 +26,13 @@ const ChatList = () => {
         <Box>
             <TextField inputRef={inputRef} label="Имя чата"></TextField>
             <Button variant="contained" onClick={_addChat}>Add</Button>
-            <List component="nav" aria-label="main mailbox folders">
+            <List component="nav" >
                 {chats.map((itm) => (
                     <ListItem key={itm.id} button >
                         <ListItemIcon>
                             <Chat />
                         </ListItemIcon>
-                        <Link underline='none' to={`/chats/${itm.id}`}>{itm.name}</Link>
+                        <Link to={`/chats/${itm.id}`}>{itm.name}</Link>
                         <Button
                             variant="contained"
                             startIcon={<DeleteIcon />}

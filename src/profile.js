@@ -1,14 +1,15 @@
 import { Checkbox } from '@material-ui/core';
 import React, { useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getShowName } from './reducerProfile/selector';
-import { showName, setName } from './reducerProfile/slice';
+import { getShowName, getName } from './reducerProfile/selectors';
+import { showName, setName } from './reducerProfile/actions';
 
 export default function Profile() {
     const bShowName = useSelector(getShowName);
+    const name = useSelector(getName)
     const dispatch = useDispatch();
 
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState(name);
     const handleChange = useCallback((e) => {
         setValue(e.target.value);
     }, []);

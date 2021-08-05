@@ -1,40 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
+import { BrowserRouter } from "react-router-dom";
+import { ThemeProvider } from "@material-ui/core/styles";
+import { PersistGate } from 'redux-persist/integration/react';
+import reportWebVitals from './reportWebVitals';
+import CssBaseline from "@material-ui/core/CssBaseline";
+
 import './index.css';
 import App from './App';
-// import App from './hookContextTest/App';
-import reportWebVitals from './reportWebVitals';
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import orange from '@material-ui/core/colors/orange';
-import { BrowserRouter } from "react-router-dom";
-import { configureStore } from '@reduxjs/toolkit'
-import profileSlice from './reducerProfile/slice';
-import chatsSlice from './reducerChats/slice';
-
-const store = configureStore({ reducer: { profile: profileSlice, chatsData: chatsSlice } });
-
-const myTheme = createTheme({
-  palette: {
-    type: "light",
-    primary: {
-      main: orange[500]
-    },
-    background: {
-      default: '#009999'
-    }
-  }
-});
+import MyTheme from './theme';
+import MyStore, { persistor } from './store';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={myTheme}>
+    <ThemeProvider theme={MyTheme}>
       <CssBaseline />
-      <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+      <Provider store={MyStore}>
+        <PersistGate persistor={persistor} loading={<div>Loading...</div>}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </PersistGate>
       </Provider>
     </ThemeProvider>
   </React.StrictMode>,
