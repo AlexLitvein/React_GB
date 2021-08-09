@@ -5,13 +5,18 @@ import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import createSagaMiddleware from 'redux-saga'
 import MySaga from './saga';
+import gistsReducer from './reduserGists/reducer';
 
 const persistConfig = {
     key: 'root',
     storage,
 }
 
-const rootReducer = combineReducers({ profile: profileReducer, chatsData: chatsReducer });
+const rootReducer = combineReducers({
+    profile: profileReducer,
+    chatsData: chatsReducer,
+    gists: gistsReducer,
+});
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 

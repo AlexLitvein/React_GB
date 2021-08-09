@@ -18,6 +18,10 @@ const Menu = () => {
                 <li>
                     <Link to="/">Home</Link>
                 </li>
+                <li>
+                    <Link to="/gists">Gists</Link>
+                </li>
+
             </ul>
         </header>
     );
