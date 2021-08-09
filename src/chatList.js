@@ -7,16 +7,16 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { getChats } from './reducerChats/selectors';
 import { addChat, delChat } from './reducerChats/actions';
 
-const ChatList = () => {    
+const ChatList = () => {
     const chats = useSelector(getChats);
     const dispatch = useDispatch();
     const inputRef = useRef(null);
 
-    const _delChat = (id) => {
+    const sendDelChat = (id) => {
         dispatch(delChat(id));
     };
 
-    const _addChat = useCallback(() => {
+    const sendAddChat = useCallback(() => {
         const newChat = { id: Date.now().toString(), name: inputRef.current.value, msgs: [] };
         dispatch(addChat(newChat));
         inputRef.current.value = '';
@@ -25,7 +25,7 @@ const ChatList = () => {
     return (
         <Box>
             <TextField inputRef={inputRef} label="Имя чата"></TextField>
-            <Button variant="contained" onClick={_addChat}>Add</Button>
+            <Button variant="contained" onClick={sendAddChat}>Add</Button>
             <List component="nav" >
                 {chats.map((itm) => (
                     <ListItem key={itm.id} button >
@@ -36,7 +36,7 @@ const ChatList = () => {
                         <Button
                             variant="contained"
                             startIcon={<DeleteIcon />}
-                            onClick={() => { _delChat(itm.id); }} // а как еще передать аргумент в фунцию, иначе она вызывается сразу
+                            onClick={() => { sendDelChat(itm.id); }} // а как еще передать аргумент в фунцию, иначе она вызывается сразу
                         >
                             Delete
                         </Button>

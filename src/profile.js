@@ -14,7 +14,7 @@ export default function Profile() {
         setValue(e.target.value);
     }, []);
 
-    const _setName = useCallback(() => {
+    const sendSetName = useCallback(() => {
         dispatch(setName(value));
     }, [dispatch, value]);
 
@@ -23,7 +23,7 @@ export default function Profile() {
         <div>
             <div>
                 <input type="text" value={value} onChange={handleChange} />
-                <button onClick={_setName}>Change Name</button>
+                <button onClick={sendSetName}>Change Name</button>
             </div>
             <span>Show name</span>
             <Checkbox defaultChecked={bShowName} onChange={(e) => {
