@@ -13,7 +13,6 @@ function PrivateRoute({ authenticated, ...rest }) {
 }
 
 function PublicRoute({ authenticated, ...rest }) {
-    // return !authenticated ? <Route {...rest} /> : <Redirect to="/chats/aa" />;
     return <Route {...rest} />;
 }
 

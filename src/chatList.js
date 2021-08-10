@@ -9,12 +9,10 @@ import { addChat, dbChatsSubscrible, delChat, initChatsTracking, initMessageTrac
 
 const ChatList = () => {
     const chats = useSelector(selChatsList);
-    // console.log('selChatsList', chats);
     const dispatch = useDispatch();
     const inputRef = useRef(null);
 
     useEffect(() => {
-        // console.log('useEffect initChatsTracking');
         initChatsTracking(dispatch);
     }, []);
 
@@ -29,7 +27,6 @@ const ChatList = () => {
     }, [dispatch]);
 
     const draw = useCallback(() => {
-        // console.log('draw');
         return chats.map((itm) => (
             <ListItem key={itm.key} button >
                 <ListItemIcon>

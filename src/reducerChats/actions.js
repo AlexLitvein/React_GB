@@ -25,8 +25,6 @@ export const initChatsTracking = (dispatch) => {
 };
 
 export const initChatMsgsTracking = (dispatch, chatId) => {
-    console.log('initChatMsgsTracking');
-
     firebase.database().ref("msgs").child(chatId).on("value", (snapshot) => {
         const payload = [];
         snapshot.forEach((itm) => {

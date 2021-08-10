@@ -4,8 +4,6 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core/styles";
-// import { PersistGate } from 'redux-persist/integration/react';
-// import { persistor } from './store';
 import reportWebVitals from './reportWebVitals';
 import CssBaseline from "@material-ui/core/CssBaseline";
 
