@@ -1,27 +1,27 @@
+import * as fb from "./firebase";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core/styles";
-import { PersistGate } from 'redux-persist/integration/react';
 import reportWebVitals from './reportWebVitals';
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 import './index.css';
 import App from './App';
 import MyTheme from './theme';
-import MyStore, { persistor } from './store';
+import MyStore from './store';
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={MyTheme}>
       <CssBaseline />
       <Provider store={MyStore}>
-        <PersistGate persistor={persistor} loading={<div>Loading...</div>}>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </PersistGate>
+        {/* <PersistGate persistor={persistor} loading={<div>Loading...</div>}> */}
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+        {/* </PersistGate> */}
       </Provider>
     </ThemeProvider>
   </React.StrictMode>,

@@ -1,30 +1,38 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Message from "./Message";
 import SendForm from "./SendForm";
 import { useSelector, useDispatch } from "react-redux";
 import { getShowName } from './reducerProfile/selectors';
-import { getChats } from './reducerChats/selectors';
-import { addMsg, addMessageWithThunk } from './reducerChats/actions';
+import { addMsg, initChatMsgsTracking } from "./reducerChats/actions";
+import { getChatMsgs } from "./reducerChats/selectors";
 
 function MessageList() {
+    let { chatId } = useParams();
     const bShowName = useSelector(getShowName);
-    const chats = useSelector(getChats);
+    const messages = useSelector(getChatMsgs);
     const dispatch = useDispatch();
-    let { chatId } = useParams();    
 
     const addMessage = (msg) => {
         if (msg.auth !== "" && msg.text !== "") {
-            dispatch(addMsg(chatId, msg));         
+            dispatch(addMsg(chatId, msg));
         }
     };
 
+    useEffect(() => {
+        initChatMsgsTracking(dispatch, chatId);
+    }, [chatId]);
+
+    const drawMsgs = useCallback(() => {
+        return messages.map((itm, idx) => (
+            <Message key={itm.key} msg={itm} show={bShowName} />
+        ));
+    }, [messages]);
+
     return (
         <>
-            <div className="msg-chats flx-grw brd">
-                {chats.find(e => e.id === chatId).msgs.map((msg, idx) => (
-                    <Message key={idx} msg={msg} show={bShowName} />
-                ))}
+            <div className="msg-list flx-grw brd">
+                {drawMsgs()}
             </div>
             <SendForm addMessage={addMessage} />
         </>

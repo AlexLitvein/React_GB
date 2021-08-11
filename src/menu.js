@@ -11,10 +11,7 @@ const Menu = () => {
             <ul>
                 <li>
                     <Link to="/profile">profile</Link>
-                </li>
-                <li>
-                    <Link to="/chats/bb">chats</Link>
-                </li>
+                </li>                
                 <li>
                     <Link to="/">Home</Link>
                 </li>

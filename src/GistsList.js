@@ -12,7 +12,6 @@ const GistsList = () => {
     const status = useSelector(selectGistsLoading);
 
     const requestGists = () => {
-        // getAllGists(dispatch);
         dispatch(setGistsLoading());
     };
 
