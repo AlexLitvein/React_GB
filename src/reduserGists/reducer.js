@@ -14,22 +14,6 @@ const initialState = {
 
 };
 
-// export const getAllGists = async (dispatch) => {
-//   dispatch(actions.setGistsLoading());
-//   try {
-//     const res = await fetch(API_URL_PUBLIC);
-//     if (!res.ok) {
-//       throw new Error(`Request failed with status ${res.status}`);
-//     }
-//     const result = await res.json();
-//     dispatch(actions.setGistsSuccess(result));
-//   } catch (err) {
-//     dispatch(actions.setGistsFailure(err.message));
-//   }
-// };
-
-
-
 export default function gistsReducer(state = initialState, action) {
   switch (action.type) {
     case actions.GISTS_SET_LOADING:

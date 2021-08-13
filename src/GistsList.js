@@ -1,8 +1,8 @@
-import { CircularProgress } from '@material-ui/core';
 import React, { useCallback, useEffect } from 'react';
+import { CircularProgress } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import { setGistsLoading } from './reduserGists/actions';
-import { getAllGists, STATUS } from './reduserGists/reducer';
+import { STATUS } from './reduserGists/reducer';
 import { selectGists, selectGistsError, selectGistsLoading } from './reduserGists/selectors';
 
 const GistsList = () => {
@@ -25,7 +25,12 @@ const GistsList = () => {
     );
 
     if (status === STATUS.LOADING) {
-        return <CircularProgress />;
+        return (
+            <div>
+                <CircularProgress />
+                <span>Loading...</span>
+            </div>
+        );
     }
 
     if (status === STATUS.FAILURE) {
